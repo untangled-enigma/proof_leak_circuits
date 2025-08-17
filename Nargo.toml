@@ -1,0 +1,6 @@
+[package]
+name = "proof_leak_contracts"
+type = "bin"
+authors = [""]
+
+[dependencies]
