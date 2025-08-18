@@ -1,3 +1,11 @@
-# proof-leak-contracts
+# Proof Leak Noir Circuits
+> TODO
 
-zkemail = { tag = "v.1.0.0-beta.5", git = "https://github.com/zkemail/zkemail.nr", directory = "lib" }
+# Usage
+
+- Compile and generate circuits
+
+```bash
+make compile
+```
+
