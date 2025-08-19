@@ -4,3 +4,6 @@ help:
 
 compile: 
 			@bash scripts/compile.sh
+
+test-js:
+			cd js && npm run test
