@@ -12,6 +12,12 @@ make compile
 ### JS Package
 > Note: Requires circuit artefacts (i.e. a `json` file located under ./target), Generate using `make compile` command 
 
+Navigate to `js` folder by
+
+```bash
+cd yarn
+```
+
 #### Install dependencies
 
 ```bash
