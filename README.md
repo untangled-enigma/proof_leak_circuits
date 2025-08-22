@@ -15,7 +15,7 @@ make compile
 Navigate to `js` folder by
 
 ```bash
-cd yarn
+cd js
 ```
 
 #### Install dependencies
