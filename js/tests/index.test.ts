@@ -122,7 +122,7 @@ test.skip('Verify proof', async () => {
   // const bufproof = fs.readFileSync(path.join(__dirname, "./test-eml/proof"));
 
   const inputs = await generateEmailVerifierInputs(
-    emails.large,
+    emails.org,
     inputParams
   );
   const proof = await prover.fullProve(inputs);
