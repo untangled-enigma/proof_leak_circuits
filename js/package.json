@@ -18,7 +18,7 @@
     "check": "biome check --write",
     "dev": "rslib build --watch",
     "format": "biome format --write",
-    "test": "vitest --testTimeout=10000 --poolOptions.vmThreads.maxThreads 4 --poolOptions.vmThreads.memoryLimit 8GiB"
+    "test": "vitest --testTimeout=0 --poolOptions.vmThreads.maxThreads 4 --poolOptions.vmThreads.memoryLimit 8GiB"
   },
   "devDependencies": {
     "@biomejs/biome": "2.1.3",

@@ -1,5 +1,6 @@
 import { beforeAll, expect, it, test } from 'vitest';
 import { ProofLeakProver, domainSequence, extractEmailAddresses } from '../src/index'
+import type { PLCircuitInputs } from "../src/index"
 import fs from "fs";
 import path from "path";
 import ky from 'ky';
@@ -15,8 +16,8 @@ const inputParams = {
 const threads = os.cpus().length;
 
 const emails = {
-  large: fs.readFileSync(
-    path.join(__dirname, "./test-eml/testemail.eml")
+  fail: fs.readFileSync(
+    path.join(__dirname, "./test-eml/fail_email.eml")
   ),
   org: fs.readFileSync(
     path.join(__dirname, "./test-eml/my_org_email.eml")
@@ -31,20 +32,18 @@ beforeAll(async () => {
 
 test("generate inputes", async () => {
 
-  const eml = emails.org
+  const eml = emails.fail
   const inputs = await generateEmailVerifierInputs(
     eml,
     inputParams
   );
-
+  /*
   fs.writeFileSync(
     path.join(__dirname, "./test-eml/inputs_org.json"),
     JSON.stringify(inputs)
   )
-
+*/
   const extEmail = extractEmailAddresses(eml.toString())
-  console.log(`extracted FROM\n ${extEmail.from.address} \n ${extEmail.from.domain}`);
-
   const fromDomainSeq = domainSequence(inputs.header.storage, extEmail.from.address)
   const toDomainSeq = domainSequence(inputs.header.storage, extEmail.to.address)
 
@@ -62,27 +61,52 @@ test("generate inputes", async () => {
   }
 
   const rejoinedToDomain = dc.join("")
-
-  console.log(`rejoined domain ${dc.join("")}`);
   expect(rejoinedFromDomain).to.equal(extEmail.from.domain)
   expect(rejoinedToDomain).to.equal(extEmail.to.domain)
-
 })
 
-test.skip('Generate Proof', async () => {
+test('Generate Proof', async () => {
+  const eml = emails.org
   const inputs = await generateEmailVerifierInputs(
-    emails.large,
+    eml,
     inputParams
   );
-  const proof = await prover.fullProve(inputs);
 
-  fs.writeFileSync(
-    path.join(__dirname, "./test-eml/proof"),
-    JSON.stringify(proof.proof)
-  )
+  const extEmail = extractEmailAddresses(eml.toString())
+  const from_domain_sequence = domainSequence(inputs.header.storage, extEmail.from.address)
+  const to_domain_sequence = domainSequence(inputs.header.storage, extEmail.to.address)
+
+  const plInputs: PLCircuitInputs = {
+    to_domain_sequence,
+    from_domain_sequence,
+    ...inputs
+  }
+
+  const proof = await prover.fullProve(plInputs);
 
   expect(proof).toBeTruthy();
 });
+
+test('Should not gen proof if domain mismatch', async () => {
+  const eml = emails.fail
+  const inputs = await generateEmailVerifierInputs(
+    eml,
+    inputParams
+  );
+
+  const extEmail = extractEmailAddresses(eml.toString())
+  const from_domain_sequence = domainSequence(inputs.header.storage, extEmail.from.address)
+  const to_domain_sequence = domainSequence(inputs.header.storage, extEmail.to.address)
+
+  const plInputs: PLCircuitInputs = {
+    to_domain_sequence,
+    from_domain_sequence,
+    ...inputs
+  }
+
+  await expect(prover.fullProve(plInputs)).rejects.toThrow()
+});
+
 
 test.skip('Generate Vk', async () => {
   const Vk = await prover.generateVk();

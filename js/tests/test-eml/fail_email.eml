@@ -1,0 +1,80 @@
+Delivered-To: himank.mj@gmail.com
+Received: by 2002:a05:6214:2405:b0:882:3f3c:20cf with SMTP id fv5csp2520466qvb;
+        Thu, 4 Dec 2025 11:09:17 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IH1e4VdqOl8/JT5EDOuHFMVo8NsaAga8N9bRDJBvr8SJ3MhdwJOGp4bA997jIxhigY2Dsq+
+X-Received: by 2002:a05:620a:179e:b0:8b2:6eba:c42a with SMTP id af79cd13be357-8b5e68a1833mr1071099185a.61.1764875357272;
+        Thu, 04 Dec 2025 11:09:17 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1764875357; cv=none;
+        d=google.com; s=arc-20240605;
+        b=UBJcssX6MG2hur5N1AQmLRlrjqjHXdLfdGpy3QJwe/iwMCIK+DQ7C+uOujV1qz0Uo/
+         fsuwO6AwJn5xhCFlCmcAUnbPVlVzU/aJ714T4SSsuF+Fqs2W8qVt1vxK3XE6bVcdF0Fy
+         CiVKE397jhcOGK9kmEyd2FexFhUaCIiGYUPTH3gFk+wvp9G58D+YzHKv24YUgkeSbTGu
+         IR/QlDztRaIdjjF+uly/1idmTiT1kT5zMRmmW9xcywPL+VO3oxdZMf0Jo+e4E/abCOKd
+         rDtMEmvtrWR2XECLN6Bu5uNGdbQsf9RN2li9egRwKle8fNXiAYP6/myYb3jDpV1RY+es
+         tWTA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=to:date:message-id:subject:mime-version:content-transfer-encoding
+         :from:dkim-signature;
+        bh=ML77GkLz8AQ0uzNrZTCiG4n9iE9HAKfNEHUdcoEbriw=;
+        fh=YdmOe93+fE+aDgER+Wglv67SragdRDsUXALGXgNOrak=;
+        b=Rz9qpV3c3fFtrOXuqHuDlWU36Ax+wEhhDq4EnRToJKZ3i0om3cs4XJiQP1xvnqN4ec
+         AkNrEz3k1wtx5MRkSnKIUYEKEcsEZRj7HKPMKQXB/D7sDRBOwT5s7x0JlpcK3EXSklVT
+         kcUA8FEkA0uwBRWwOYHlDBtG3vdpTOdM8/OGgG6xHeShRMANJB3nOuuyuj5BRndyTjPl
+         Mxvo8tVQpDZDMxC61qOWYzqqcSR6BEn42EIJv7DMPX3CGsU7VrNXm9Dx824olgRjrNBW
+         MiVzfOf3YBzXtRMAh8otlT2jQ3l77kGXVX3aRXcN++Cvyu9GNLjLrHvls1YLOb5aLfRk
+         md/A==;
+        dara=google.com
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@icloud.com header.s=1a1hai header.b=BWp1WiuI;
+       spf=pass (google.com: domain of himank.jain@icloud.com designates 57.103.89.201 as permitted sender) smtp.mailfrom=himank.jain@icloud.com;
+       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=icloud.com
+Return-Path: <himank.jain@icloud.com>
+Received: from outbound.ci.icloud.com (p-east1-cluster5-host7-snip4-10.eps.apple.com. [57.103.89.201])
+        by mx.google.com with ESMTPS id af79cd13be357-8b627aa0cf5si86900885a.1410.2025.12.04.11.09.17
+        for <himank.mj@gmail.com>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 04 Dec 2025 11:09:17 -0800 (PST)
+Received-SPF: pass (google.com: domain of himank.jain@icloud.com designates 57.103.89.201 as permitted sender) client-ip=57.103.89.201;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@icloud.com header.s=1a1hai header.b=BWp1WiuI;
+       spf=pass (google.com: domain of himank.jain@icloud.com designates 57.103.89.201 as permitted sender) smtp.mailfrom=himank.jain@icloud.com;
+       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=icloud.com
+Received: from outbound.ci.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-central-1k-100-percent-12 (Postfix) with ESMTPS id 237DF180063C
+	for <himank.mj@gmail.com>; Thu,  4 Dec 2025 19:09:14 +0000 (UTC)
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; bh=ML77GkLz8AQ0uzNrZTCiG4n9iE9HAKfNEHUdcoEbriw=; h=From:Content-Type:Mime-Version:Subject:Message-Id:Date:To:x-icloud-hme; b=BWp1WiuI1bzRb4M7nWbsL25pv2kDOjBI9KMjjy32bPsZeuNDvw1/wAck/XvJSEhLtmp5yRnod7jmD68j4NeOteKOHHQJ/2doIwc77btATL+gFAexW327KH8bEDN0+HUP1KLCJD/RuMJ/H8KQUdy89wNQ7My5yF+KYT7NK0tBscEv+rWhRj+GB8TIkXzhg7Gpcb8f7nji7u7hYLWRJr2n0ElFK5Lsjpl9YN5zijajpVfJPVRB561EqVqB8TdJZyddxcxCBf7yqG+7rCdGaaH6NfI1Sb2tXxVE/KYdBywO54EWZS8+ThDacNBCZ2kHyKWx0wOA2DRin2xWXcbf0aWjmw==
+Received: from smtpclient.apple (unknown [17.57.156.36])
+	by p00-icloudmta-asmtp-us-central-1k-100-percent-12 (Postfix) with ESMTPSA id A7ED518013CE
+	for <himank.mj@gmail.com>; Thu,  4 Dec 2025 19:09:13 +0000 (UTC)
+From: Himank Jain <himank.jain@icloud.com>
+Content-Type: text/plain;
+	charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.400.131.1.6\))
+Subject: Fail 
+Message-Id: <57E8C433-E30F-4401-9083-DC877558B4DB@icloud.com>
+Date: Fri, 5 Dec 2025 00:38:57 +0530
+To: Himank Jain <himank.mj@gmail.com>
+X-Mailer: Apple Mail (2.3826.400.131.1.6)
+X-Proofpoint-ORIG-GUID: 9lEKO9Std8HVSwNUorDxihTiLuATX9oj
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMjA0MDE1NSBTYWx0ZWRfX05xuXYfT5Vq6
+ 4ykHVo+bOlmm+1xMiVSOJLsN2R3aCJBYNMTXL+E5BiThqk0+WNyzcCWwc1Gh1GfB6FDI81hlT4y
+ KkAvUJI/ffxt6vACtpfPGzmbzeZ1e+vu7+ed+HYMiRvLt3e2o02Yu4AHJJHC4G1bIem+fVG+o7Z
+ d1WZp9Cczk6OBZdkrm4NKrRSa+xwNhLlxFqkTrWSx+8sohV55glVC6vRQIVng8J+djICqMP5Md9
+ o6KIYu3NQGB7k4FExUBYAqn+TGW2VWdHtV6dNzMlxhh5uJlr7HKVVi376emMN8h3A1w/AEqTZSk
+ 0hpoeI0aE116iG8eFWy
+X-Proofpoint-GUID: 9lEKO9Std8HVSwNUorDxihTiLuATX9oj
+X-Authority-Info: v=2.4 cv=OLkqHCaB c=1 sm=1 tr=0 ts=6931dc5b cx=c_apl:c_pps
+ a=2G65uMN5HjSv0sBfM2Yj2w==:117 a=2G65uMN5HjSv0sBfM2Yj2w==:17
+ a=kj9zAlcOel0A:10 a=wP3pNCr1ah4A:10 a=x7bEGLp0ZPQA:10 a=wW629cFXLIoA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=AEAu7ucKaKAajA63SUAA:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
+ definitions=2025-12-04_04,2025-12-04_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
+ adultscore=0 phishscore=0 mlxlogscore=473 suspectscore=0 spamscore=0
+ clxscore=1015 mlxscore=0 bulkscore=0 classifier=spam authscore=0 adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2510240001 definitions=main-2512040155
+X-JNJ: AAAAAAABvTRMb/6wH4kbo/VYWiRyzmiG0GhWj/k4ba0kaVW2973rz1qAQVV9lX0F+KcWBC17ReJnWXeOVQYa8BgEWQnDhXtBXCza619eQZ3Rb9A9JKqdLUVLzXRnkwLe1MQFo3kzgSy32/RA4Z+s89XcGkhSs9yAj/ZBYWKOUUhEZK21zCUL9jDL6pb/ruyK88EO9rcYigwexD4gii6eEcyc6ZbYUWCXzCf9wN+iV2O9DMvPaq5u1/TtA3zhFrQzqltGiNjDeEukEDlOkDJvaht9XmUrD1bfq7shyL9jjrXLngIoIOEQCgQbv0SXITRXO74IMoybQSCgP363/MSsiWFM9SCIfhwTWZVCWGB0zQLThdA3wfXVLk/VTR5fjWQeeS/Wgg+VGoMnsogUBJCzQ3jqVFHMINvnXQMdLkH+5gWvmmR/F+XwrzdobjV2AYJ9C8dJW/SkME0vXTFKF8SCrDZ8ROyVyrqW2cLfnHv2Ln9U0y6MI4lkdRrMfysd0gUScgTzIBr10j8WgGyAFxjvkSaPnUPzz0Oz3nN4UPZ+1jjQ+DVBNrmLnmUnZuruP4uO3sM76MA3lkgN
+
+Fail
