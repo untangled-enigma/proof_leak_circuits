@@ -8,7 +8,7 @@
       "import": "./dist/index.js"
     }
   },
-  "author": "Himank Jain <stee-feel>",
+  "author": "Himank Jain <steel-feel>",
   "types": "./dist/index.d.ts",
   "files": [
     "dist"
@@ -18,7 +18,7 @@
     "check": "biome check --write",
     "dev": "rslib build --watch",
     "format": "biome format --write",
-    "test": "vitest --testTimeout=0 --poolOptions.vmThreads.maxThreads 4 --poolOptions.vmThreads.memoryLimit 8GiB"
+    "test": "vitest --testTimeout=10000 --poolOptions.vmThreads.maxThreads 4 --poolOptions.vmThreads.memoryLimit 8GiB"
   },
   "devDependencies": {
     "@biomejs/biome": "2.1.3",
@@ -30,6 +30,7 @@
   },
   "private": true,
   "dependencies": {
+    "eml-parse-js" : "1.2.0-beta.1",
     "@aztec/bb.js": "0.84.0",
     "@zk-email/zkemail-nr": "^1.3.2"
   }

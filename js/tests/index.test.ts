@@ -1,5 +1,5 @@
-import { beforeAll, expect, test } from 'vitest';
-import { ProofLeakProver } from '../src/index'
+import { beforeAll, expect, it, test } from 'vitest';
+import { ProofLeakProver, domainSequence, extractEmailAddresses } from '../src/index'
 import fs from "fs";
 import path from "path";
 import ky from 'ky';
@@ -7,8 +7,8 @@ import { generateEmailVerifierInputs } from "@zk-email/zkemail-nr"
 import os from 'os';
 
 const inputParams = {
-  // extractFrom: true,
-  // extractTo: true,
+  extractFrom: true,
+  extractTo: true,
   maxHeadersLength: 1024,
   maxBodyLength: 1024,
 };
@@ -18,12 +18,55 @@ const emails = {
   large: fs.readFileSync(
     path.join(__dirname, "./test-eml/testemail.eml")
   ),
+  org: fs.readFileSync(
+    path.join(__dirname, "./test-eml/my_org_email.eml")
+  ),
 };
 
 let prover: ProofLeakProver;
 
 beforeAll(async () => {
   prover = new ProofLeakProver('honk', threads);
+})
+
+test("generate inputes", async () => {
+
+  const eml = emails.org
+  const inputs = await generateEmailVerifierInputs(
+    eml,
+    inputParams
+  );
+
+  fs.writeFileSync(
+    path.join(__dirname, "./test-eml/inputs_org.json"),
+    JSON.stringify(inputs)
+  )
+
+  const extEmail = extractEmailAddresses(eml.toString())
+  console.log(`extracted FROM\n ${extEmail.from.address} \n ${extEmail.from.domain}`);
+
+  const fromDomainSeq = domainSequence(inputs.header.storage, extEmail.from.address)
+  const toDomainSeq = domainSequence(inputs.header.storage, extEmail.to.address)
+
+  expect(extEmail.from.domain.length).to.eq(+fromDomainSeq.length)
+  expect(extEmail.to.domain.length).to.eq(+toDomainSeq.length)
+
+  let dc = []
+  for (var i = +fromDomainSeq.index; i < +fromDomainSeq.index + +fromDomainSeq.length; i++) {
+    dc.push(String.fromCharCode(+inputs.header.storage[i]))
+  }
+  const rejoinedFromDomain = dc.join("")
+  dc.length = 0
+  for (var i = +toDomainSeq.index; i < +toDomainSeq.index + +toDomainSeq.length; i++) {
+    dc.push(String.fromCharCode(+inputs.header.storage[i]))
+  }
+
+  const rejoinedToDomain = dc.join("")
+
+  console.log(`rejoined domain ${dc.join("")}`);
+  expect(rejoinedFromDomain).to.equal(extEmail.from.domain)
+  expect(rejoinedToDomain).to.equal(extEmail.to.domain)
+
 })
 
 test.skip('Generate Proof', async () => {
@@ -50,44 +93,8 @@ test.skip('Generate Vk', async () => {
 
 })
 
-test.skip('Register VK', async () => {
 
- // const bufVZk = fs.readFileSync(path.join(__dirname, "./test-eml/noir-vkey.json"));
-  //const base64Vk = bufVZk.toString("base64");
-  const Vk = await prover.generateVk();
-  const base64Vk = Buffer.from(Vk).toString('base64');
-
-//  if (!fs.existsSync(path.join(__dirname, "./test-eml/zkVerify-vkey.json"))) {
-    // Registering the verification key
-    try {
-      const regParams = {
-        "proofType": "ultrahonk",
-        "vk": base64Vk
-      }
-      const regResponse = await ky.post(`${process.env.VITE_API_URL}/register-vk/${process.env.VITE_API_KEY}`, {
-        timeout: 60_000,
-        json: regParams
-      });
-
-      console.log({ regResponse });
-
-      fs.writeFileSync(
-        path.join(__dirname, "./test-eml/zkVerify-vkey.json"),
-        JSON.stringify(regResponse)
-      );
-
-    } catch (error) {
-
-      fs.writeFileSync(
-        path.join(__dirname, "./test-eml/err-zkVerify-vkey.json"),
-        JSON.stringify(error)
-      )
-    }
-//  }
-
-})
-
-test('Verify proof', async () => {
+test.skip('Verify proof', async () => {
   // const bufproof = fs.readFileSync(path.join(__dirname, "./test-eml/proof"));
 
   const inputs = await generateEmailVerifierInputs(

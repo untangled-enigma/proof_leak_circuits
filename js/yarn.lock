@@ -980,6 +980,11 @@
   resolved "https://registry.yarnpkg.com/@rspack/lite-tapable/-/lite-tapable-1.0.1.tgz#d4540a5d28bd6177164bc0ba0bee4bdec0458591"
   integrity sha512-VynGOEsVw2s8TAlLf/uESfrgfrq2+rcXB1muPJYBWbsm1Oa6r5qVQhjA5ggM6z/coYPrsVMgovl3Ff7Q7OCp1w==
 
+"@sinonjs/text-encoding@^0.7.2":
+  version "0.7.3"
+  resolved "https://registry.yarnpkg.com/@sinonjs/text-encoding/-/text-encoding-0.7.3.tgz#282046f03e886e352b2d5f5da5eb755e01457f3f"
+  integrity sha512-DE427ROAphMQzU4ENbliGYrBSYPXF+TtLg9S8vzeA+OF4ZKzoDdzfL8sxuMUGS/lgRhM6j1URSk9ghf7Xo1tyA==
+
 "@swc/helpers@^0.5.17":
   version "0.5.17"
   resolved "https://registry.yarnpkg.com/@swc/helpers/-/helpers-0.5.17.tgz#5a7be95ac0f0bf186e7e6e890e7a6f6cda6ce971"
@@ -1316,6 +1321,14 @@ elliptic@6.6.1:
     minimalistic-assert "^1.0.1"
     minimalistic-crypto-utils "^1.0.1"
 
+eml-parse-js@1.2.0-beta.1:
+  version "1.2.0-beta.1"
+  resolved "https://registry.yarnpkg.com/eml-parse-js/-/eml-parse-js-1.2.0-beta.1.tgz#2371c1a2ce4a9fe4032372b51fa30861d15c2232"
+  integrity sha512-sFlcUwNmIjPD7yR0/OK4XEN9V+/Np3S6SE348LNgwgAlgA1jswba+cTNxN/Rbkz+CHPyBSfh3Ccamp6lLWz0Lw==
+  dependencies:
+    "@sinonjs/text-encoding" "^0.7.2"
+    js-base64 "^3.7.2"
+
 encoding-japanese@2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/encoding-japanese/-/encoding-japanese-2.2.0.tgz#0ef2d2351250547f432a2dd155453555c16deb59"
@@ -1540,6 +1553,11 @@ jiti@^2.5.1:
   version "2.5.1"
   resolved "https://registry.yarnpkg.com/jiti/-/jiti-2.5.1.tgz#bd099c1c2be1c59bbea4e5adcd127363446759d0"
   integrity sha512-twQoecYPiVA5K/h6SxtORw/Bs3ar+mLUtoPSc7iMXzQzK8d7eJ/R09wmTwAjiamETn1cXYPGfNnu7DMoHgu12w==
+
+js-base64@^3.7.2:
+  version "3.7.8"
+  resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-3.7.8.tgz#af44496bc09fa178ed9c4adf67eb2b46f5c6d2a4"
+  integrity sha512-hNngCeKxIUQiEUN3GPJOkz4wF/YvdUdbNL9hsBcMQTkKzboD7T/q3OYOuuPZLUE6dBxSGpwhk5mwuDud7JVAow==
 
 js-sha3@0.8.0, js-sha3@^0.8.0:
   version "0.8.0"
