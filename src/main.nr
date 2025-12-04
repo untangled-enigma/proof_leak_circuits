@@ -25,6 +25,8 @@ fn main(
     header: BoundedVec<u8, MAX_EMAIL_HEADER_LENGTH>,
     pubkey: RSAPubkey<KEY_LIMBS_2048>,
     signature: [Field; KEY_LIMBS_2048],
+    to_domain_sequence : Sequence,
+    from_domain_sequence : Sequence,
   //  from_header_sequence: Sequence,
   //  from_address_sequence: Sequence,
   //  to_header_sequence: Sequence,
@@ -35,6 +37,14 @@ fn main(
 
     // verify the dkim signature over the header
     pubkey.verify_dkim_signature(header, signature);
+
+    assert(to_domain_sequence.end_index() != from_domain_sequence.end_index(), "to/from pointing to same field");
+    assert(to_domain_sequence.length == from_domain_sequence.length, "to/from domain length mismatch");
+
+    // Safety: Checking domains
+    unsafe {
+    check_domain(header,to_domain_sequence.index, from_domain_sequence.index,to_domain_sequence.length )
+    }
 
     // extract to and from email addresses
 //   let from = comptime { "from".as_bytes() };
@@ -78,4 +88,10 @@ fn main(
   //  assert(from_address.len() == 20, "to email mismatch");
   // let mut g: BoundedVec<u8, 254> = BoundedVec::from_array([]);
   true
+}
+
+unconstrained fn check_domain(header:BoundedVec<u8, 1024>, to_index: u32,from_index: u32, d_length: u32) {
+ for i in 0 .. d_length {
+        assert(header.get(to_index + i) == header.get(from_index + i), "domain does not match" )   
+    }
 }
