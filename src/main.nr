@@ -46,47 +46,6 @@ fn main(
     check_domain(header,to_domain_sequence.index, from_domain_sequence.index,to_domain_sequence.length )
     }
 
-    // extract to and from email addresses
-//   let from = comptime { "from".as_bytes() };
-  //  let to = comptime { "to".as_bytes() };
-    // // 16k gate cost? has to be able to be brought down
-  //  let from_address = get_email_address(header, from_header_sequence, from_address_sequence, from);
-  //  let to_address = get_email_address(header, to_header_sequence, to_address_sequence, to);
-
-    // // hash the pubkey and signature for the standard outputs
-    // let email_nullifier = pedersen_hash(signature);
-    // let standard_out = [pubkey.hash(), email_nullifier];
-    // (standard_out, from_address, to_address)
-  /*
-    let domain_symbol: u8 = 10;
-    let mut acc: u32 = 0;
-    let acc_ref = &mut acc;
-
-    to_address.for_eachi(|i, value| {
-        if (domain_symbol == value) {
-            *acc_ref = i;
-        }
-    });
-
-    // Safety: 'out' is properly constrained below in 'sub_str'
-    let to_domain_name = unsafe { sub_str(to_address, *acc_ref) };
-
-    //extract from domain
-    let mut acc2: u32 = 0;
-    let acc_ref2 = &mut acc;
-
-    from_address.for_eachi(|i, value| {
-        if (domain_symbol == value) {
-            *acc_ref2 = i;
-        }
-    });
-
-    // Safety: 'out' is properly constrained below in 'sub_str'
-    let from_domain_name = unsafe { sub_str(from_address, *acc_ref) };
-*/
-   // assert(to_address.len() == 19, "from email mismatch");
-  //  assert(from_address.len() == 20, "to email mismatch");
-  // let mut g: BoundedVec<u8, 254> = BoundedVec::from_array([]);
   true
 }
 
