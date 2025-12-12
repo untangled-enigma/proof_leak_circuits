@@ -1,4 +1,4 @@
-import { Sequence } from '@zk-email/zkemail-nr/dist/utils';
+import { BoundedVec, Sequence } from '@zk-email/zkemail-nr/dist/utils';
 import { ParsedEmlJson, parseEml, readEml } from 'eml-parse-js'
 
 export type EmailAddress = {
@@ -114,6 +114,20 @@ export function extractEmail(email: string): EmailAddress {
   return { address: parsedEmail, domain: domainArr.join("") };
 }
 
+export function domainInputs(domain: string) : BoundedVec {
+  let storage :  string[] = []
+  
+  for (let i = 0 ; i <domain.length ; i++ ) {
+    storage.push(domain.charCodeAt(i) + "")
+  }
+
+  for (let i = domain.length ; i < 127 ; i++ ) {
+    storage.push("0")
+  }
+  
+  return {storage, len: storage.length + "" }
+}
+
 function extractAddressFromHeader(headers: any, selection: string ) : string {
   //capitalise first letter
   let selectionArray= selection.split("");
@@ -136,4 +150,6 @@ function extractAddressFromHeader(headers: any, selection: string ) : string {
   return address
   
 }
+
+
 
