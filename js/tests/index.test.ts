@@ -1,5 +1,5 @@
 import { beforeAll, expect, it, test } from 'vitest';
-import { ProofLeakProver, domainSequence, extractEmailAddresses } from '../src/index'
+import { ProofLeakProver, domainInputs, domainSequence, extractEmailAddresses } from '../src/index'
 import type { PLCircuitInputs } from "../src/index"
 import fs from "fs";
 import path from "path";
@@ -76,7 +76,8 @@ test('Generate Proof', async () => {
   const from_domain_sequence = domainSequence(inputs.header.storage, extEmail.from.address)
   const to_domain_sequence = domainSequence(inputs.header.storage, extEmail.to.address)
 
-  const plInputs: PLCircuitInputs = {
+  const plInputs = {
+    domain: domainInputs(extEmail.to.domain),
     to_domain_sequence,
     from_domain_sequence,
     ...inputs
