@@ -1,0 +1,5 @@
+onlyBuiltDependencies:
+  - blake-hash
+  - core-js
+  - esbuild
+  - msgpackr-extract
