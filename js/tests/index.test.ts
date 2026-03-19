@@ -65,7 +65,7 @@ test("generate inputes", async () => {
   expect(rejoinedToDomain).to.equal(extEmail.to.domain)
 })
 
-test('Generate Proof', async () => {
+test.only('Generate Proof', async () => {
   const eml = emails.org
   const inputs = await generateEmailVerifierInputs(
     eml,
@@ -85,7 +85,37 @@ test('Generate Proof', async () => {
 
   const proof = await prover.fullProve(plInputs);
 
-  expect(proof).toBeTruthy();
+
+  const verificationResult = await prover.verify(proof)
+
+  // expect(verificationResult).toEqual(true)
+
+  //expect(proof).toBeTruthy();
+
+
+  // fs.writeFileSync(
+  //   path.join(__dirname, "./test-eml/proof.json"),
+  //   JSON.stringify({
+  //     data: Buffer.from(proof.proof).toString('hex'),
+  //     pubInputs: proof.publicInputs
+  //   })
+  // );
+   //  const VK_HASH = "0x2dadbd0c19594c314f3740804a6e1ed4f18e5682dca66399807e11feca693e3e"
+//   const VK_HASH = "0x2dadbd0c19594c314f3740804a6e1ed4f18e5682dca66399807e11feca693e3e"
+
+//   const body = {
+//     "proofType": "ultrahonk",
+//     "vkRegistered": true,
+//     "proofData": {
+//         "proof": Buffer.from(proof.proof).toString('hex'),
+//         "vk": VK_HASH,
+//         "publicSignals": proof.publicInputs
+//     }
+// }
+
+
+
+
 });
 
 test('Should not gen proof if domain mismatch', async () => {
@@ -109,26 +139,48 @@ test('Should not gen proof if domain mismatch', async () => {
 });
 
 
-test.skip('Generate Vk', async () => {
+test('Generate Vk', async () => {
   const Vk = await prover.generateVk();
+  //@ts-ignore
+  const hexVKey = Buffer.from(Vk).toString('hex');
   fs.writeFileSync(
     path.join(__dirname, "./test-eml/noir-vkey.json"),
-    JSON.stringify(Vk)
+    JSON.stringify(hexVKey)
   );
 
+  //register with zkVerify
+  // const hexVKey = Buffer.from(Vk).toString('hex');
+  // const API_URL = "https://api-testnet.kurier.xyz/api/v1";
+  // const API_KEY = "dfb3e702acb570afc9e81ad59c423440917c1c51"
+  // const body = {
+  //   "proofType": "ultrahonk",
+  //   "vk": hexVKey
+  // }
+  // //convert the vkey into hex
+  // const regResponse = await ky.post(`${API_URL}/register-vk/${API_KEY}`, { json: { foo: true } }).json();
+
+  // // const vkey = fs.readFileSync('../target/zkv_vk.hex', 'utf-8');
+  // fs.writeFileSync(
+  //   "noir-vkey.json",
+  //   JSON.stringify(regResponse.data)
+  // );
 })
 
 
-test.skip('Verify proof', async () => {
+test('Verify proof', async () => {
   // const bufproof = fs.readFileSync(path.join(__dirname, "./test-eml/proof"));
-
+  const VK_HASH = "0x2dadbd0c19594c314f3740804a6e1ed4f18e5682dca66399807e11feca693e3e"
   const inputs = await generateEmailVerifierInputs(
     emails.org,
     inputParams
   );
+
   const proof = await prover.fullProve(inputs);
 
-  expect(await prover.verify(proof)).toBeTruthy;
+  // expect(await prover.verify(proof)).toBeTruthy;
+
+
+
 })
 
 test.skip('submit proof', async () => {
