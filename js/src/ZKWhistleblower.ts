@@ -6,7 +6,7 @@ import circuit from "../../target/proof_leak_contracts.json"
 
 export type ProvingBackend = "honk" | "plonk" | "all";
 
-export class ProofLeakProver {
+export class ZKWhistleblowerProver {
   private plonk?: UltraPlonkBackend;
 
   private honk?: UltraHonkBackend;

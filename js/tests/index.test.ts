@@ -1,6 +1,6 @@
 import { beforeAll, expect, it, test } from 'vitest';
-import { ProofLeakProver, domainInputs, domainSequence, extractEmailAddresses } from '../src/index'
-import type { PLCircuitInputs } from "../src/index"
+import { ZKWhistleblowerProver, domainInputs, domainSequence, extractEmailAddresses } from '../src/index'
+import type { zkWCircuitInputs  } from "../src/index"
 import fs from "fs";
 import path from "path";
 import ky from 'ky';
@@ -24,10 +24,10 @@ const emails = {
   ),
 };
 
-let prover: ProofLeakProver;
+let prover: ZKWhistleblowerProver;
 
 beforeAll(async () => {
-  prover = new ProofLeakProver('honk', threads);
+  prover = new ZKWhistleblowerProver('honk', threads);
 })
 
 test("generate inputes", async () => {
@@ -129,7 +129,8 @@ test('Should not gen proof if domain mismatch', async () => {
   const from_domain_sequence = domainSequence(inputs.header.storage, extEmail.from.address)
   const to_domain_sequence = domainSequence(inputs.header.storage, extEmail.to.address)
 
-  const plInputs: PLCircuitInputs = {
+  //@ts-ignore
+  const plInputs: zkWCircuitInputs = {
     to_domain_sequence,
     from_domain_sequence,
     ...inputs
