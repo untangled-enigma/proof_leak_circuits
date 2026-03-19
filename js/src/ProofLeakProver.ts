@@ -82,7 +82,7 @@ export class ProofLeakProver {
     }
 
     // generate the proof
-    return backend.generateProof(witness , {keccak: true});
+    return backend.generateProof(witness, );
   }
 
   /**
