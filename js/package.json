@@ -15,7 +15,8 @@
   "types": "./dist/node/index.d.ts",
   "main": "./dist/node/index.js",
   "files": [
-    "dist"
+    "dist",
+    "assets"
   ],
   "scripts": {
     "build": "rslib build",
