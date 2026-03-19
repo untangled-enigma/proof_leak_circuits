@@ -4,12 +4,16 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
+      "types": "./dist/node/index.d.ts",
+      "browser": "./dist/browser/index.js",
+      "node": "./dist/node/index.js",
+      "import": "./dist/node/index.js",
+      "default": "./dist/node/index.js"
     }
   },
   "author": "Himank Jain <steel-feel>",
-  "types": "./dist/index.d.ts",
+  "types": "./dist/node/index.d.ts",
+  "main": "./dist/node/index.js",
   "files": [
     "dist"
   ],
